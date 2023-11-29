@@ -9,9 +9,13 @@ router.get('/',async(req,res)=>{
     })
 })
 
-
 //post
-
-router.post('/register',);
+router.post('/register',async(req,res)=>{
+    res.status(202).json({
+        status: 'success',
+        message : 'API REGISTER'
+    })
+});
+router.post('/login',)
 
 export default router
