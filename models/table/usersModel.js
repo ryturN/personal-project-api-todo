@@ -1,5 +1,5 @@
-import db from "../../db";
-import { DataType, DataTypes } from "sequelize";
+import db from "../../db/index.js";
+import  DataTypes  from "sequelize";
 
 const usersTable = db.define('users',{
     nomor: {

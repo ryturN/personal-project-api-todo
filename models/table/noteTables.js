@@ -1,5 +1,5 @@
-import { DATEONLY, DataType, DataTypes } from "sequelize";
-import db from "../../db";
+import DataTypes  from "sequelize";
+import db from "../../db/index.js";
 
 const noteTables = db.define('notes',{
     notes_id:{
