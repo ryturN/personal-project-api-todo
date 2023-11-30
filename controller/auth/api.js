@@ -21,6 +21,7 @@ export const login = async(req,res)=>{
                 result:{
                     id: user.id,
                     username : user.username,
+                    token : token,
                 }
             })
         }
