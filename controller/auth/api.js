@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 
 
 const register = async(req,res)=>{
-    // try {
+    try {
         const {username, email,password,confirmPassword} = req.body
         const id = `users_${nanoid(20)}`
             const dataStorage = {
@@ -16,23 +16,27 @@ const register = async(req,res)=>{
                 password,
                 confirmPassword
             };
-            const data = await jwt.sign({dataStorage},process.env.JWT_TOKEN,{expiresIn: '120s'});
+            const data = await jwt.sign({dataStorage,token},process.env.JWT_TOKEN,{expiresIn: '120s'});
             res.cookie('data',data),{
                 httpOnly: true,
                 maxAge: 120000,
                 secure: true,
             }
+            const token = ({
+                id: id,
+                token: data
+            })
             const checkUsername = await usernameCheck(username);
             const checkEmail = await emailCheck(email)
-            console.log(data)
-            // if(checkUsername.length > 0 || checkEmail.length > 0){
-            //     return res.status(400).json({
-            //         status: 'fail',
-            //         message: 'username / email already used!'
-                
-            //     });
-            // } 
-
+            console.log(token.id)
+                // if(checkUsername.length > 0 || checkEmail.length > 0){
+                //     return res.status(400).json({
+                //         status: 'fail',
+                //         message: 'username / email already used!'
+                    
+                //     });
+                // } 
+            
             if(password !== confirmPassword){
                 return res.status(400).json({
                     status: 'fail',
@@ -40,7 +44,7 @@ const register = async(req,res)=>{
                 });
             }
 
-            transporter.sendMail(await sendVerif(email),(error,info)=>{
+            transporter.sendMail(await sendVerif(email,token),(error,info)=>{
                 if(error){
                     console.log(`error sending email:`, error);
                     return res.status(500).json({
@@ -54,9 +58,22 @@ const register = async(req,res)=>{
                 status: 'success',
                 message: 'link has sent!'
             })
-    // } catch (error) {
-    //     error
-    // }
+    } catch (error) {
+        console.error(`error ${error}`);
+        throw error
+    }
 }
+
+
+const verify = async (req,res)=>{
+    try {
+        const {id,token} = req.query
+    } catch (error) {
+        console.error(`error ${error}`);
+        throw error
+    }
+
+}
+
 
 export default register
