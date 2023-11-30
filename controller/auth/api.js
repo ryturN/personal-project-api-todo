@@ -5,6 +5,35 @@ import {transporter, sendVerif} from '../../middleware/email.js'
 import { nanoid } from 'nanoid';
 
 
+export const login = async(req,res)=>{
+    try {
+        const {username, password} = req.body
+        const user = await findUsers(username,password);
+        if(user){
+            const token = jwt.sign({username},process.env.JWT_TOKEN,{expiresIn: '1d'})
+            return res.cookie('token',token,{
+                httpOnly: true,
+                maxAge: 24*24*24*1000,
+                secure: true,
+            }).status(202).json({
+                status: 'success',
+                message: 'login succed!',
+                data:{
+                    id: user.id,
+                    username : user.username,
+                }
+            })
+        }
+        return res.status(402).json({
+            status: 'fail',
+            message: 'user not found!'
+        })
+    } catch (error) {
+        console.error(`error`,error)
+        throw error
+    }
+}
+
 export const register = async(req,res)=>{
     try {
         const {username, email,password,confirmPassword} = req.body
@@ -24,13 +53,13 @@ export const register = async(req,res)=>{
             }
             const checkUsername = await usernameCheck(username);
             const checkEmail = await emailCheck(email)
-                // if(checkUsername == username ||checkEmail == email){
-                //     return res.status(400).json({
-                //         status: 'fail',
-                //         message: 'username / email already used!'
+                if(checkUsername.length > 0 ||checkEmail.length > 0){
+                    return res.status(400).json({
+                        status: 'fail',
+                        message: 'username / email already used!'
                     
-                //     });
-                // } 
+                    });
+                } 
             
             if(password !== confirmPassword){
                 return res.status(400).json({
@@ -38,7 +67,7 @@ export const register = async(req,res)=>{
                     message: 'Password & confirm Password not match!'
                 });
             }
-
+            console.log(`http://localhost:2000/api/verify/?id=${id}&token=${data}`)
             transporter.sendMail(await sendVerif(email,id,data),(error,info)=>{
                 if(error){
                     console.log(`error sending email:`, error);
@@ -61,7 +90,7 @@ export const register = async(req,res)=>{
 
 
 export const verify = async (req,res)=>{
-    // try {
+    try {
         const cookie = req.cookies
         const {id,token} = req.query
         console.log(id)
@@ -101,9 +130,10 @@ export const verify = async (req,res)=>{
                 }
             })
         })
-    // } catch (error) {
-    //     console.error(`error ${error}`);
-    //     throw error
-    // }
+        // res.remove(data)
+    } catch (error) {
+        console.error(`error ${error}`);
+        throw error
+    }
 
 }

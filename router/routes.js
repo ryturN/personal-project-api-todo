@@ -1,5 +1,5 @@
 import express from "express";
-import {register,verify} from "../controller/auth/api.js";
+import {login, register,verify} from "../controller/auth/api.js";
 
 const router = express.Router();
 
@@ -19,8 +19,8 @@ router.get('/',async(req,res)=>{
 //         message : 'API REGISTER'
 //     })
 // });
-router.post('/login',)
+router.post('/login',login)
 router.post('/register',register)
-router.post('/verify',verify)
+router.get('/verify',verify)
 
 export default router
