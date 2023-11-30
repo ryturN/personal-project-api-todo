@@ -1,12 +1,13 @@
 import nodemailer from 'nodemailer'
-// import dotenv from 'dotenv'
-// dotenv.config()
+import dotenv from 'dotenv'
+import path from 'path'
+dotenv.config()
 
 export const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth:{
-        user: `watashiox@gmail.com`,
-        pass: `xtcvwuvoxccwcong`,
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
     }
 });
 
@@ -18,7 +19,6 @@ export const sendVerif = async(email,id,data) =>{
         html : `
         <a href="http://localhost:2000/api/verify/?id=${id}&token=${data}">here</a>
         `
-
     }
 }
 

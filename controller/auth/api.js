@@ -45,6 +45,7 @@ export const register = async(req,res)=>{
                 password,
                 confirmPassword
             };
+            console.log(process.env.EMAIL)
             const data = await jwt.sign({dataStorage},process.env.JWT_TOKEN,{expiresIn: '120s'});
             res.cookie('data',data),{
                 httpOnly: true,

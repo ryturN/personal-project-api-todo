@@ -21,6 +21,10 @@ const usersTable = db.define('users',{
     password:{
       type: DataTypes.STRING,
     },
+    verify:{
+        type: DataTypes.STRING,
+        defaultValue: 'false',
+    }
 })
 
 usersTable.sync().then(()=>{
