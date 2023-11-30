@@ -1,5 +1,5 @@
 import express from "express";
-import register from "../controller/auth/api.js";
+import {register,verify} from "../controller/auth/api.js";
 
 const router = express.Router();
 
@@ -10,6 +10,7 @@ router.get('/',async(req,res)=>{
         message: 'API Connected!'
     })
 })
+// router.get('/verify/:id/:token')
 
 //post
 // router.post('/register',async(req,res)=>{
@@ -20,5 +21,6 @@ router.get('/',async(req,res)=>{
 // });
 router.post('/login',)
 router.post('/register',register)
+router.post('/verify',verify)
 
 export default router

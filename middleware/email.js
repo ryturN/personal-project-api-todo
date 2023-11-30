@@ -10,13 +10,13 @@ export const transporter = nodemailer.createTransport({
     }
 });
 
-export const sendVerif = async(email,token) =>{
+export const sendVerif = async(email,id,data) =>{
     return {
         from: 'TODO Verif',
         to: email,
         subject: 'verification email',
         html : `
-        <a href="${token.id}/${token.token}">here</a>
+        <a href="http://localhost:2000/api/verify/?id=${id}&token=${data}">here</a>
         `
 
     }
