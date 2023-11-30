@@ -93,7 +93,7 @@ export const register = async(req,res)=>{
 
 export const verify = async (req,res)=>{
     try {
-        const cookie = req.cookies
+        const cookie = await req.cookies
         const {id,token} = req.query
         console.log(id)
         if(!cookie.data && !cookie.token){
