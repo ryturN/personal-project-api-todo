@@ -18,7 +18,7 @@ export const login = async(req,res)=>{
             }).status(202).json({
                 status: 'success',
                 message: 'login succed!',
-                data:{
+                result:{
                     id: user.id,
                     username : user.username,
                 }
@@ -124,7 +124,7 @@ export const verify = async (req,res)=>{
             userData.password)
             return res.status(202).json({
                 status:'success',
-                data:{
+                result:{
                     id : userData.id,
                     username : userData.username,
                     email : userData.id,
