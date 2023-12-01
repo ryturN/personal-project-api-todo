@@ -99,7 +99,6 @@ export const register = async(req,res)=>{
 export const verify = async (req,res)=>{
     try {
         const {id,token} = req.query
-        // return res.status(200).redirect('http://localhost:3000/login')
         jwt.verify(token,process.env.JWT_TOKEN, async(err,decoded)=>{
             if(err){
                 return res.status(404).json({
@@ -120,7 +119,7 @@ export const verify = async (req,res)=>{
             userData.username,
             userData.email,
             userData.password)
-            return res.status(202).redirect('/localhost:3000/login')
+            return res.status(202).redirect('https://todo-client-mqxn4q5g2q-as.a.run.app/verify/success')   
         })
         // res.remove(data)
     } catch (error) {
@@ -156,7 +155,7 @@ export const deleteUser = async(req,res)=>{
                 .json({
                     status: 'success',
                     message: 'delete'
-                },setTimeout(200).redirect('/success'))
+                })
             }
         })
     } catch (error) {
