@@ -98,38 +98,39 @@ export const register = async(req,res)=>{
 
 export const verify = async (req,res)=>{
     try {
-        const cookie = await req.cookies
-        const {id,token} = req.query
-        const data = cookie.data
-        await jwt.verify(data,process.env.JWT_TOKEN, async(err,decoded)=>{
-            if(err){
-                return res.status(404).json({
-                    status: 'fail',
-                    message: err
-                })
-            }
-            const userData = decoded.dataStorage
-            console.log(userData.id)
-            if(id !== userData.id || token !== data){
-                return res.status(404).json({
-                    status: 'fail',
-                    message: 'user not found!'
-                })
-        }
-        createUsers(
-            userData.id,
-            userData.username,
-            userData.email,
-            userData.password)
-            return res.status(202).json({
-                status:'success',
-                result:{
-                    id : userData.id,
-                    username : userData.username,
-                    email : userData.id,
-                }
-            })
-        })
+        return res.status(200).redirect('http://localhost:3000/login')
+        // const cookie = await req.cookies
+        // const {id,token} = req.query
+        // const data = cookie.data
+        // await jwt.verify(data,process.env.JWT_TOKEN, async(err,decoded)=>{
+        //     if(err){
+        //         return res.status(404).json({
+        //             status: 'fail',
+        //             message: err
+        //         })
+        //     }
+        //     const userData = decoded.dataStorage
+        //     console.log(userData.id)
+        //     if(id !== userData.id || token !== data){
+        //         return res.status(404).json({
+        //             status: 'fail',
+        //             message: 'user not found!'
+        //         })
+        // }
+        // createUsers(
+        //     userData.id,
+        //     userData.username,
+        //     userData.email,
+        //     userData.password)
+        //     return res.status(202).json({
+        //         status:'success',
+        //         result:{
+        //             id : userData.id,
+        //             username : userData.username,
+        //             email : userData.id,
+        //         }
+        //     })
+        // })
         // res.remove(data)
     } catch (error) {
         console.error(`error ${error}`);
