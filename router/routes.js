@@ -1,5 +1,6 @@
 import express from "express";
 import {login, register,verify} from "../controller/auth/api.js";
+import { create, getNote } from "../controller/notes/api.js";
 
 const router = express.Router();
 
@@ -19,8 +20,10 @@ router.get('/',async(req,res)=>{
 //         message : 'API REGISTER'
 //     })
 // });
+router.get('/verify',verify)
 router.post('/login',login)
 router.post('/register',register)
-router.get('/verify',verify)
+router.post('/createNote',create)
+router.get('/getNote',getNote)
 
 export default router
