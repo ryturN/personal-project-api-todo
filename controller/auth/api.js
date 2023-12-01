@@ -120,16 +120,9 @@ export const verify = async (req,res)=>{
             userData.username,
             userData.email,
             userData.password)
-            return res.status(202).json({
-                status:'success',
-                result:{
-                    id : userData.id,
-                    username : userData.username,
-                    email : userData.id,
-                }
-            })
+            return res.status(202).redirect('/localhost:3000/login')
         })
-        res.remove(data)
+        // res.remove(data)
     } catch (error) {
         console.error(`error ${error}`);
         throw error
