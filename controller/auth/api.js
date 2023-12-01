@@ -100,12 +100,6 @@ export const verify = async (req,res)=>{
     try {
         const cookie = await req.cookies
         const {id,token} = req.query
-        if(!cookie.data){
-            return res.status(404).json({
-                status: 'fail',
-                message: 'u not allowed!'
-            })
-        }
         const data = cookie.data
         await jwt.verify(data,process.env.JWT_TOKEN, async(err,decoded)=>{
             if(err){
