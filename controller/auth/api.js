@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer'
 import {transporter, sendVerif} from '../../middleware/email.js'
 import { nanoid } from 'nanoid';
 
-
+// Login function
 export const login = async(req,res)=>{
     try {
         const {username, password} = req.body
@@ -25,6 +25,7 @@ export const login = async(req,res)=>{
                 }
             })
         }
+        // if user not found!
         return res.status(402).json({
             status: 'fail',
             message: 'user not found!'
@@ -35,6 +36,7 @@ export const login = async(req,res)=>{
     }
 }
 
+// register function
 export const register = async(req,res)=>{
     try {
         const {username, email,password,confirmPassword} = req.body
@@ -46,7 +48,6 @@ export const register = async(req,res)=>{
                 password,
                 confirmPassword
             };
-            console.log(process.env.EMAIL)
             const data = await jwt.sign({dataStorage},process.env.JWT_TOKEN,{expiresIn: '120s'});
             res.cookie('data',data),{
                 httpOnly: true,
@@ -83,7 +84,7 @@ export const register = async(req,res)=>{
             return res.status(200).json({
                 status: 'success',
                 message: 'link has sent!'
-            })
+            },setTimeout(200).redirect('/success'))
     } catch (error) {
         console.error(`error ${error}`);
         throw error
@@ -95,7 +96,6 @@ export const verify = async (req,res)=>{
     try {
         const cookie = await req.cookies
         const {id,token} = req.query
-        console.log(id)
         if(!cookie.data && !cookie.token){
             return res.status(404).json({
                 status: 'fail',
@@ -138,4 +138,13 @@ export const verify = async (req,res)=>{
         throw error
     }
 
+}
+
+export const deleteUser = async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
 }
