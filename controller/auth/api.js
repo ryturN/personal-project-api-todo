@@ -88,7 +88,7 @@ export const register = async(req,res)=>{
                 result: {
                     dataToken : data
                 }
-            },setTimeout(200).redirect('/success'))
+            })
     } catch (error) {
         console.error(`error ${error}`);
         throw error
