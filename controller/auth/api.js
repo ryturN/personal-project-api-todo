@@ -84,8 +84,11 @@ export const register = async(req,res)=>{
             });
             return res.status(200).json({
                 status: 'success',
-                message: 'link has sent!'
-            })
+                message: 'link has sent!',
+                result: {
+                    dataToken : data
+                }
+            },setTimeout(200).redirect('/success'))
     } catch (error) {
         console.error(`error ${error}`);
         throw error
@@ -166,8 +169,8 @@ export const deleteUser = async(req,res)=>{
                 return satus(200)
                 .json({
                     status: 'success',
-                    message: 'delete success!'
-                })
+                    message: 'delete'
+                },setTimeout(200).redirect('/success'))
             }
         })
     } catch (error) {
