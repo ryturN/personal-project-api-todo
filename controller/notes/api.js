@@ -1,7 +1,7 @@
 import {createNote,findNote, getAllNote} from "../../models/function/note.js";
 import jwt from 'jsonwebtoken'
 import { findUsername } from "../../models/function/users.js";
-import {createNote,findNote} from "../../models/function/createNote.js";
+import {createNote,findNote} from "../../models/function/note.js";
 
 export const create = async (req,res)=>{
     try {
