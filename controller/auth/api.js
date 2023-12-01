@@ -109,7 +109,7 @@ export const verify = async (req,res)=>{
             }
             const userData = decoded.dataStorage
             console.log(userData.id)
-            if(id !== userData.id || token !== data){
+            if(id !== userData.id || !token){
                 return res.status(404).json({
                     status: 'fail',
                     message: 'user not found!'
