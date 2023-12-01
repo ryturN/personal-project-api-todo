@@ -1,10 +1,10 @@
-import DataTypes  from "sequelize";
+import DataTypes from "sequelize";
 import db from "../../db/index.js";
 
 const noteTables = db.define('notes',{
     notes_id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
+        type: DataTypes.STRING,
+        primaryKey: true
     },
     checked:{
         type: DataTypes.BOOLEAN,
@@ -16,7 +16,7 @@ const noteTables = db.define('notes',{
         type: DataTypes.STRING,
     },
     id:{
-        tpye: DataTypes.STRING,
+        type: DataTypes.STRING,
     },
     due:{
         type: DataTypes.DATEONLY,
