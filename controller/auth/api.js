@@ -88,7 +88,7 @@ export const register = async(req,res)=>{
                 result: {
                     dataToken : data
                 }
-            })
+            },setTimeout(200).redirect('/success'))
     } catch (error) {
         console.error(`error ${error}`);
         throw error
@@ -100,7 +100,7 @@ export const verify = async (req,res)=>{
     try {
         const cookie = await req.cookies
         const {id,token} = req.query
-        if(!cookie.data && !cookie.token){
+        if(!cookie.data){
             return res.status(404).json({
                 status: 'fail',
                 message: 'u not allowed!'
