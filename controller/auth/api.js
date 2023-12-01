@@ -1,8 +1,9 @@
-import {createUsers,findUsers,usernameCheck,emailCheck} from '../../models/function/users.js'
+import {createUsers,findUsers,usernameCheck,emailCheck, findUsername} from '../../models/function/users.js'
 import jwt  from "jsonwebtoken";
 import nodemailer from 'nodemailer'
 import {transporter, sendVerif} from '../../middleware/email.js'
 import { nanoid } from 'nanoid';
+import usersTable from '../../models/table/usersModel.js';
 
 // Login function
 export const login = async(req,res)=>{
@@ -84,7 +85,7 @@ export const register = async(req,res)=>{
             return res.status(200).json({
                 status: 'success',
                 message: 'link has sent!'
-            },setTimeout(200).redirect('/success'))
+            })
     } catch (error) {
         console.error(`error ${error}`);
         throw error
@@ -142,7 +143,33 @@ export const verify = async (req,res)=>{
 
 export const deleteUser = async(req,res)=>{
     try {
-        
+        const cookie = req.cookies
+        const token = cookie.token
+        if(!token){
+            return res.status(404).json({
+                status: 'fail',
+                message: 'you must login first!'
+            })
+
+        }
+        jwt.verify(token,process.env.JWT_TOKEN, async(error,decoded)=>{
+            if(error){
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'error',error
+                })
+            }
+            const username = decoded.username
+            const user = await findUsername(username)
+            if(user){
+                usersTable.drop({where:{username}});
+                return satus(200)
+                .json({
+                    status: 'success',
+                    message: 'delete success!'
+                })
+            }
+        })
     } catch (error) {
         console.error(error)
         throw error
