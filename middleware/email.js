@@ -17,7 +17,7 @@ export const sendVerif = async(email,id,data) =>{
         to: email,
         subject: 'verification email',
         html : `
-        <a href="http://localhost:2000/api/verify/?id=${id}&token=${data}">here</a>
+        <a href="https://todo-api-mqxn4q5g2q-as.a.run.app/api/verify/?id=${id}&token=${data}">here</a>
         `
     }
 }
