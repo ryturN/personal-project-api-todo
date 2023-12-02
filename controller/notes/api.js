@@ -1,6 +1,8 @@
 import {createNote,findNote, getAllNote} from "../../models/function/note.js";
 import jwt from 'jsonwebtoken'
 import { findUsername } from "../../models/function/users.js";
+import { nanoid } from "nanoid";
+import noteTables from "../../models/table/noteTables.js";
 
 export const create = async (req,res)=>{
     try {
@@ -110,12 +112,20 @@ export const deleteNote = async(req,res)=>{
             const username = decoded.username
             const user = await findUsername(username)
             const id = user.id
-            const result = await findNote({
-                where:{
-                    notes_id
-                }
-            })
-            if(result){
+            const result = await noteTables.findOne({where:{notes_id}})
+            if(!result){
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'notes not found!'})
+            }
+            const resultID = result.id
+            if(resultID !== id){
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'u are not allowed to delete this notes!'})
+            }
+            console.log(resultID)
+            if(result && id == resultID){
                 await result.destroy({where:{notes_id}})
                 return res.status(200).json({
                     status: 'success',
@@ -152,11 +162,7 @@ try {
         const username = decoded.username
         const user = await findUsername(username)
         const id = user.id
-        const result = await findNote({
-            where:{
-                notes_id
-            }
-        })
+        const result = await noteTables.findOne({where:{notes_id}})
         if(result){
             await result.update({
                 checked,

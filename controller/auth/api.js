@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 import {transporter, sendVerif} from '../../middleware/email.js'
 import { nanoid } from 'nanoid';
 import usersTable from '../../models/table/usersModel.js';
+import noteTables from '../../models/table/noteTables.js';
 
 // Login function
 export const login = async(req,res)=>{
@@ -107,6 +108,7 @@ export const verify = async (req,res)=>{
                 })
             }
             const userData = decoded.dataStorage
+            const verify = 'true'
             console.log(userData.id)
             if(id !== userData.id || !token){
                 return res.status(404).json({
@@ -119,7 +121,7 @@ export const verify = async (req,res)=>{
             userData.username,
             userData.email,
             userData.password,
-            verify=true,
+            verify,
             )
             return res.status(202).redirect('https://todo-client-mqxn4q5g2q-as.a.run.app/verify/success')   
         })
@@ -151,14 +153,16 @@ export const deleteUser = async(req,res)=>{
             const username = decoded.username
             const user = await findUsername(username)
             if(user){
+                const id = user.id
                 await usersTable.destroy({where:{username}});
+                await noteTables.destroy({where:{id}});
                 return res.status(200)
                 .json({
                     status: 'success',
                     message: 'delete'
                 })
             }else{
-                return res.statut(404).json({
+                return res.status(404).json({
                     status: 'fail',
                     message: 'user not found!'
                 })
@@ -168,4 +172,17 @@ export const deleteUser = async(req,res)=>{
         console.error(error)
         throw error
      }
+}
+
+export const logout = async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+
+}
+
+export const updateProfile = async(req,res)=>{
+
 }

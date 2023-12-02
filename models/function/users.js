@@ -1,13 +1,14 @@
 import bcrypt from "bcrypt";
 import usersTable from "../table/usersModel.js";
 
-export const createUsers = async (id, username, email, password) => {
+export const createUsers = async (id, username, email, password,verify) => {
   const hashedPassword = await bcrypt.hashSync(password, 10);
   usersTable.create({
     id,
     username,
     email,
     password: hashedPassword,
+    verify,
   });
 };
 
