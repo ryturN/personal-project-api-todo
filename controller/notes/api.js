@@ -29,7 +29,7 @@ export const create = async (req,res)=>{
             const result = findNote(id)
             const notes_id = `notes_${nanoid(7)}`
             if(user){
-                createNote(
+                await createNote(
                     checked,
                     notes_id,
                     notes_name,
