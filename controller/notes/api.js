@@ -78,7 +78,6 @@ export const getNote = async (req,res)=>{
             const username = decoded.username
             const user = await findUsername(username)
             const id = user.id
-            console.log(id)
             const result = await getAllNote(id)
             if(result){
                 io.emit('update',result)

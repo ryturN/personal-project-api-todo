@@ -110,7 +110,6 @@ export const verify = async (req,res)=>{
             }
             const userData = decoded.dataStorage
             const verify = 'true'
-            console.log(userData.id)
             if(id !== userData.id || !token){
                 return res.status(404).json({
                     status: 'fail',
