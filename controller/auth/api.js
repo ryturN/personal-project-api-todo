@@ -17,6 +17,7 @@ export const login = async(req,res)=>{
                 httpOnly: true,
                 maxAge: 24*24*24*1000,
                 secure: true,
+                sameSite: 'none',
             }).status(202).json({
                 status: 'success',
                 message: 'login succed!',
@@ -125,7 +126,6 @@ export const verify = async (req,res)=>{
             )
             return res.status(202).redirect('https://todo-client-mqxn4q5g2q-as.a.run.app/verify/success')   
         })
-        // res.remove(data)
     } catch (error) {
         console.error(`error ${error}`);
         throw error
