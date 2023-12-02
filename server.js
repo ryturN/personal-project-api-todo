@@ -32,7 +32,7 @@ export const io = new socketIo.Server(server,{
     cors:{
         origin: ['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
         methods: ["GET","POST"],
-        // credentials: true
+        credentials: true
     }
 })
 
