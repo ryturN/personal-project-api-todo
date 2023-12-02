@@ -37,14 +37,9 @@ export const create = async (req,res)=>{
                     id,
                     due,
                     )
-                    io.emit('createNote',{
-                        checked,
-                        notes_id,
-                        notes_name,
-                        notes_desc,
-                        id,
-                        due,
-                    })
+                    const findNote = await noteTables.findAll({where:{id}})           
+                    io.emit('getNote',
+                    findNote)
                     return res.status(200).json({
                         status: 'success',
                         message: 'success post!',
