@@ -8,6 +8,7 @@ const noteTables = db.define('notes',{
     },
     checked:{
         type: DataTypes.BOOLEAN,
+        defaultValue: 'false',
     },
     notes_name:{
         type: DataTypes.STRING,
