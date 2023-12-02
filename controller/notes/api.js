@@ -86,6 +86,7 @@ export const getNote = async (req,res)=>{
             console.log(id)
             const result = await getAllNote(id)
             if(result){
+                io.emit('update',result)
                 return res.status(200).json({
                     status: 'success',
                     message: 'success',
