@@ -28,7 +28,7 @@ const server = app.listen(port,()=>{
 })
 
 export const io = new socketIo.Server(server,{
-    path: "/api/connect",
+    path: "/api/createNote",
     cors:{
         origin: ['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
         methods: ["GET","POST"],
@@ -39,7 +39,7 @@ export const io = new socketIo.Server(server,{
 io.on('connection',(socket)=>{
  console.log('connected!');
  socket.on('createNote',createNote)
- socket.on('disconnect',()=>{
-    console.log('disconnected!');
-    });
+//  socket.on('disconnect',()=>{
+//     console.log('disconnected!');
+//     });
 });
