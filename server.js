@@ -28,6 +28,7 @@ const server = app.listen(port,()=>{
 })
 
 export const io = new socketIo.Server(server,{
+    path: "/api/getNote"
     cors:{
         origin: ['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
         methods: ["GET","POST"],
