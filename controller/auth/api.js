@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 import {transporter, sendVerif} from '../../middleware/email.js'
 import { nanoid } from 'nanoid';
 import usersTable from '../../models/table/usersModel.js';
+import noteTables from '../../models/table/noteTables.js';
 
 // Login function
 export const login = async(req,res)=>{
@@ -16,6 +17,7 @@ export const login = async(req,res)=>{
                 httpOnly: true,
                 maxAge: 24*24*24*1000,
                 secure: true,
+                sameSite: 'none',
             }).status(202).json({
                 status: 'success',
                 message: 'login succed!',
@@ -99,7 +101,6 @@ export const register = async(req,res)=>{
 export const verify = async (req,res)=>{
     try {
         const {id,token} = req.query
-        // return res.status(200).redirect('http://localhost:3000/login')
         jwt.verify(token,process.env.JWT_TOKEN, async(err,decoded)=>{
             if(err){
                 return res.status(404).json({
@@ -108,6 +109,7 @@ export const verify = async (req,res)=>{
                 })
             }
             const userData = decoded.dataStorage
+            const verify = 'true'
             console.log(userData.id)
             if(id !== userData.id || !token){
                 return res.status(404).json({
@@ -119,10 +121,11 @@ export const verify = async (req,res)=>{
             userData.id,
             userData.username,
             userData.email,
-            userData.password)
-            return res.status(202).redirect('http://localhost:3000/login')
+            userData.password,
+            verify,
+            )
+            return res.status(202).redirect('https://todo-client-mqxn4q5g2q-as.a.run.app/verify/success')   
         })
-        // res.remove(data)
     } catch (error) {
         console.error(`error ${error}`);
         throw error
@@ -131,17 +134,16 @@ export const verify = async (req,res)=>{
 }
 
 export const deleteUser = async(req,res)=>{
+    const cookie = await req.cookies
+    const token = cookie.token
+    if(!token){
+        return res.status(404).json({
+            status: 'fail',
+            message: 'you must login first!'
+        })
+    }
     try {
-        const cookie = req.cookies
-        const token = cookie.token
-        if(!token){
-            return res.status(404).json({
-                status: 'fail',
-                message: 'you must login first!'
-            })
-
-        }
-        jwt.verify(token,process.env.JWT_TOKEN, async(error,decoded)=>{
+        await jwt.verify(token,process.env.JWT_TOKEN, async(error,decoded)=>{
             if(error){
                 return res.status(404).json({
                     status: 'fail',
@@ -151,16 +153,36 @@ export const deleteUser = async(req,res)=>{
             const username = decoded.username
             const user = await findUsername(username)
             if(user){
-                usersTable.drop({where:{username}});
-                return satus(200)
+                const id = user.id
+                await usersTable.destroy({where:{username}});
+                await noteTables.destroy({where:{id}});
+                return res.status(200)
                 .json({
                     status: 'success',
                     message: 'delete'
-                },setTimeout(200).redirect('/success'))
+                })
+            }else{
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'user not found!'
+                })
             }
         })
     } catch (error) {
         console.error(error)
         throw error
+     }
+}
+
+export const logout = async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
     }
+
+}
+
+export const updateProfile = async(req,res)=>{
+
 }

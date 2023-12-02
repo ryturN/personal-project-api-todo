@@ -1,6 +1,6 @@
 import express from "express";
-import {login, register,verify} from "../controller/auth/api.js";
-import { create, getNote } from "../controller/notes/api.js";
+import {deleteUser, login, register,verify} from "../controller/auth/api.js";
+import { create, deleteNote, getNote, updateNote } from "../controller/notes/api.js";
 
 const router = express.Router();
 
@@ -26,4 +26,6 @@ router.post('/register',register)
 router.post('/createNote',create)
 router.get('/getNote',getNote)
 
+router.delete('/deleteNote',deleteNote)
+router.delete('/removeAccount',deleteUser)
 export default router

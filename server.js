@@ -3,11 +3,14 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import router from "./router/routes.js";
-import dotenv from 'dotenv'
-dotenv.config()
-const app = express();
+const app = express()
 
-app.use(cors())
+let corsOptions = {
+    origin : ['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
+    credentials : true
+}
+
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.urlencoded({extended: false}));
