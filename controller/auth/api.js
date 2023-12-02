@@ -120,7 +120,7 @@ export const verify = async (req,res)=>{
             userData.username,
             userData.email,
             userData.password)
-            return res.status(202).redirect('/localhost:3000/login')
+            return res.status(202).redirect('http://localhost:3000/login')
         })
         // res.remove(data)
     } catch (error) {
