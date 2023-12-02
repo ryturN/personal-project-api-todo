@@ -29,7 +29,7 @@ const server = app.listen(port,()=>{
 
 const io = new socketIo.Server(server,{
     cors:{
-        origin: "*",
+        origin: ['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
         methods: ["GET","POST"],
         credentials: true
     }
