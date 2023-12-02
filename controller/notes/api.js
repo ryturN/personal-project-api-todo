@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { findUsername } from "../../models/function/users.js";
 import { nanoid } from "nanoid";
 import noteTables from "../../models/table/noteTables.js";
+import {io} from '../../server.js'
 
 export const create = async (req,res)=>{
     try {
@@ -36,6 +37,14 @@ export const create = async (req,res)=>{
                     id,
                     due,
                     )
+                    io.emit('createNote',{
+                        checked,
+                        notes_id,
+                        notes_name,
+                        notes_desc,
+                        id,
+                        due,
+                    })
                     return res.status(200).json({
                         status: 'success',
                         message: 'success post!',
@@ -93,7 +102,7 @@ export const getNote = async (req,res)=>{
 
 export const deleteNote = async(req,res)=>{
     try {
-        const {notes_id} = req.body
+        const {notes_id} = req.params
         const cookie = await req.cookies
         const token = cookie.token
         if(!token){

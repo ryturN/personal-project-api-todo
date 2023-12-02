@@ -27,7 +27,7 @@ const server = app.listen(port,()=>{
     console.log(`server is running on port: ${port}`);
 })
 
-const io = new socketIo.Server(server,{
+export const io = new socketIo.Server(server,{
     cors:{
         origin: ['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
         methods: ["GET","POST"],
@@ -37,10 +37,8 @@ const io = new socketIo.Server(server,{
 
 io.on('connection',(socket)=>{
  console.log('connected!');
- 
- socket.on('createNote',(createNote))
- 
+ socket.on('createNote',createNote)
  socket.on('disconnect',()=>{
     console.log('disconnected!');
-});
+    });
 });
