@@ -97,7 +97,7 @@ export const getNote = async (req,res)=>{
 
 export const deleteNote = async(req,res)=>{
     try {
-        const {notes_id} = req.params
+        const {notes_id} = req.query
         const cookie = await req.cookies
         const token = cookie.token
         if(!token){
