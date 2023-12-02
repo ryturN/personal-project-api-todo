@@ -118,7 +118,9 @@ export const verify = async (req,res)=>{
             userData.id,
             userData.username,
             userData.email,
-            userData.password)
+            userData.password,
+            verify=true,
+            )
             return res.status(202).redirect('https://todo-client-mqxn4q5g2q-as.a.run.app/verify/success')   
         })
         // res.remove(data)
@@ -130,17 +132,16 @@ export const verify = async (req,res)=>{
 }
 
 export const deleteUser = async(req,res)=>{
+    const cookie = await req.cookies
+    const token = cookie.token
+    if(!token){
+        return res.status(404).json({
+            status: 'fail',
+            message: 'you must login first!'
+        })
+    }
     try {
-        const cookie = req.cookies
-        const token = cookie.token
-        if(!token){
-            return res.status(404).json({
-                status: 'fail',
-                message: 'you must login first!'
-            })
-
-        }
-        jwt.verify(token,process.env.JWT_TOKEN, async(error,decoded)=>{
+        await jwt.verify(token,process.env.JWT_TOKEN, async(error,decoded)=>{
             if(error){
                 return res.status(404).json({
                     status: 'fail',
@@ -150,16 +151,21 @@ export const deleteUser = async(req,res)=>{
             const username = decoded.username
             const user = await findUsername(username)
             if(user){
-                usersTable.drop({where:{username}});
-                return satus(200)
+                await usersTable.destroy({where:{username}});
+                return res.status(200)
                 .json({
                     status: 'success',
                     message: 'delete'
+                })
+            }else{
+                return res.statut(404).json({
+                    status: 'fail',
+                    message: 'user not found!'
                 })
             }
         })
     } catch (error) {
         console.error(error)
         throw error
-    }
+     }
 }
