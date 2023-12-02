@@ -37,7 +37,7 @@ export const create = async (req,res)=>{
                     id,
                     due,
                     )
-                    const findNote = await noteTables.findAll({where:{id}})           
+                    const findNote = await noteTables.findAll({order:[['createdAt','DESC']],where:{id}})           
                     io.emit('getNote',
                     findNote)
                     return res.status(200).json({

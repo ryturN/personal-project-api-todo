@@ -25,7 +25,7 @@ export const findNote = async(id)=>{
 
 export const getAllNote = async(id)=>{
     try {
-        const result = await noteTables.findAll({where: {id}})
+        const result = await noteTables.findAll({order: [['createdAt','DESC']],where: {id}})
         if(result){
             return result
         }
