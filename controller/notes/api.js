@@ -124,7 +124,6 @@ export const deleteNote = async(req,res)=>{
                     status: 'fail',
                     message: 'u are not allowed to delete this notes!'})
             }
-            console.log(resultID)
             if(result && id == resultID){
                 await result.destroy({where:{notes_id}})
                 return res.status(200).json({
