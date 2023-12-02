@@ -5,6 +5,7 @@ import cors from "cors"
 import router from "./router/routes.js";
 import * as socketIo from 'socket.io'
 import { createNote } from "./models/function/note.js";
+import { getNote } from "./controller/notes/api.js";
 const app = express()
 
 let corsOptions = {
@@ -28,7 +29,7 @@ const server = app.listen(port,()=>{
 })
 
 export const io = new socketIo.Server(server,{
-    path: "/api/createNote",
+    // path: "/api/createNote",
     cors:{
         origin: '*',//['https://todo-client-mqxn4q5g2q-as.a.run.app','http://localhost:3000'],
         methods: ["GET","POST"],
@@ -38,7 +39,7 @@ export const io = new socketIo.Server(server,{
 
 io.on('connection',(socket)=>{
  console.log('connected!');
- socket.on('createNote',createNote)
+ socket.on('getNote',getNote)
 //  socket.on('disconnect',()=>{
 //     console.log('disconnected!');
 //     });
