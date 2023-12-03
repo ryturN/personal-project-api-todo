@@ -174,7 +174,7 @@ try {
                 due
             
             })
-            io.emit('updateNote',result)
+            io.emit('getNote',result)
             return res.status(200).json({
                 status: 'success',
                 message: 'success update!'
