@@ -1,6 +1,6 @@
 import express from "express";
 import {deleteUser, login, register,verify} from "../controller/auth/api.js";
-import { create, deleteNote, getNote, updateNote } from "../controller/notes/api.js";
+import { checked, create, deleteNote, getNote, updateNote } from "../controller/notes/api.js";
 
 const router = express.Router();
 
@@ -23,6 +23,7 @@ router.post('/createNote',create)
 
 // update
 router.put('/updateNote',updateNote)
+router.put('/updateNoteChecked',checked)
 
 
 // delete
