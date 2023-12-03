@@ -189,3 +189,55 @@ try {
     })
 }
 }
+
+export const filterNote = async(req,res)=>{
+    try {
+        const {notes_name,checked} = req.body
+        const cookie = await req.cookies
+        const token = cookie.token
+        if(!token){
+            return res.status(404).json({
+                status: 'fail',
+                message: 'you must login!'
+            })
+        }
+        jwt.verify(token,process.env.JWT_TOKEN, async(error,decoded)=>{
+            if(error){
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'error',error
+                })
+            }
+            const username = decoded.username
+            const user = await findUsername(username)
+            const id = user.id
+            const resultName = await noteTables.findAll({order: [['notes_name', 'DESC']],where:{id}})
+            const resultChecked = await noteTables.findAll({order: [['checked', 'DESC']],where:{id}})
+            if(resultName){
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'success',
+                    result:{
+                        result
+                    }
+                })
+            }
+            if(resultChecked){
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'success',
+                    result:{
+                        result
+                    }
+                })
+            }
+
+        })   
+    }
+    catch(error){
+        return res.status(404).json({
+            status: 'fail',
+            message: 'error',error
+        })
+    }
+}

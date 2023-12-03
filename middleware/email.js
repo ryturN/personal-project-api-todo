@@ -22,3 +22,11 @@ export const sendVerif = async(email,id,data) =>{
     }
 }
 
+export const sendReset = async(email,verificationCode) =>{
+    return{
+    from: 'TODO Reset', 
+    to: email,
+    subject: 'reset password',
+    html: `your verif code is: ${code}`
+}
+}

@@ -1,4 +1,4 @@
-import {createUsers,findUsers,usernameCheck,emailCheck, findUsername} from '../../models/function/users.js'
+import {createUsers,findUsers,usernameCheck,emailCheck, findUsername, updatePassword} from '../../models/function/users.js'
 import jwt  from "jsonwebtoken";
 import nodemailer from 'nodemailer'
 import {transporter, sendVerif} from '../../middleware/email.js'
@@ -182,6 +182,78 @@ export const logout = async(req,res)=>{
 
 }
 
-export const updateProfile = async(req,res)=>{
+export const sendingVerifCode = async (req,res)=>{
+    try {
+        const email = req.body.email
+        const user = await emailCheck(email)
+        const verificationCode = nanoid(5)
+        if(user){
+            const forgetPassword = jwt.sign({email,verificationCode},process.env.JWT_TOKEN,{expiresIn: '120s'})
+            res.cookie('forgetPassword',forgetPassword),{
+                httpOnly: true,
+                maxAge: 120000,
+                secure: true,
+            }
+            transporter.MailMessage(await sendVerif(email,verificationCode),(error,info)=>{
+                if(error){
+                    console.log(`error sending email:`, error);
+                    return res.status(500).json({
+                        status: 'fail',
+                        message: error
+                    })
+                }
+                return console.log('message sent : %s', info.messageId);
+            })
+            return res.status(200).json({
+                status: 'success',
+                message: 'verif code has sent!'
 
+            })
+        }
+    } catch (error) {
+        console.error(`error ${error}`);
+    }
+}
+
+const resetPassword = async(req,res)=>{
+    try {
+        const {code,resetPassword,confirmPassword} = req.body.resetPassword
+        const cookie = await res.cookies
+        const forgetPassword = cookie.forgetPassword
+        if(!forgetPassword){
+            return res.status(404).json({
+                status: 'fail',
+                message: 'you must send email first!'
+            })
+        }
+        jwt.verify(forgetPassword,process.env.JWT_TOKEN, async(error,decoded)=>{
+            if(error){
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'error',error
+                })
+            }
+            const email = decoded.email
+            const verificationCode = decoded.verificationCode
+            const searchUser = await emailCheck(email)
+
+            if(searchUser){
+                if(code !== verificationCode){
+                    return res.status(400).json({
+                        status: 'fail',
+                        message: 'code not match!'
+                    })
+                }
+                if(resetPassword !== confirmPassword){
+                    return res.status(400).json({
+                        status: 'fail',
+                        message: 'password not match!'
+                    })
+                }
+                return await updatePassword(email,resetPassword)
+            }
+        })
+    } catch (error) {
+        return console.error('error',error)
+    }
 }
