@@ -21,10 +21,12 @@ router.get('/',async(req,res)=>{
 //     })
 // });
 router.get('/verify',verify)
+router.get('/getNote',getNote)
 router.post('/login',login)
 router.post('/register',register)
 router.post('/createNote',create)
-router.get('/getNote',getNote)
+
+router.put('/updateNote',updateNote)
 
 router.delete('/deleteNote',deleteNote)
 router.delete('/removeAccount',deleteUser)

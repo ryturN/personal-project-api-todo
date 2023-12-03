@@ -146,7 +146,8 @@ export const deleteNote = async(req,res)=>{
 
 export const updateNote = async(req,res)=>{
 try {
-    const {notes_id,checked,notes_name,notes_desc,due} = req.body
+    const {notes_name,notes_desc,due} = req.body
+    const {notes_id} = req.query
     const cookie = await req.cookies
     const token = cookie.token
     if(!token){
@@ -168,11 +169,12 @@ try {
         const result = await noteTables.findOne({where:{notes_id}})
         if(result){
             await result.update({
-                checked,
                 notes_name,
                 notes_desc,
                 due
+            
             })
+            io.emit('updateNote',result)
             return res.status(200).json({
                 status: 'success',
                 message: 'success update!'
