@@ -77,6 +77,12 @@ export const getNote = async (req,res)=>{
             }
             const username = decoded.username
             const user = await findUsername(username)
+            if(!user){
+                return res.status(404).json({
+                    status: 'fail',
+                    message: 'user not found!'
+                })
+            }
             const id = user.id
             const result = await getAllNote(id)
             if(result){
@@ -117,6 +123,7 @@ export const deleteNote = async(req,res)=>{
             const user = await findUsername(username)
             const id = user.id
             const result = await noteTables.findOne({where:{notes_id}})
+            const resultAll = await noteTables.findAll({order:[['updatedAt','DESC']],where:{id}})
             if(!result){
                 return res.status(404).json({
                     status: 'fail',
@@ -130,6 +137,7 @@ export const deleteNote = async(req,res)=>{
             }
             if(result && id == resultID){
                 await result.destroy({where:{notes_id}})
+                io.emit('getNote',await resultAll)
                 return res.status(200).json({
                     status: 'success',
                     message: 'success delete!'

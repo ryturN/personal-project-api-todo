@@ -11,23 +11,21 @@ router.get('/',async(req,res)=>{
         message: 'API Connected!'
     })
 })
-// router.get('/verify/:id/:token')
 
-//post
-// router.post('/register',async(req,res)=>{
-//     res.status(202).json({
-//         status: 'success',
-//         message : 'API REGISTER'
-//     })
-// });
+// get
 router.get('/verify',verify)
 router.get('/getNote',getNote)
+
+// post
 router.post('/login',login)
 router.post('/register',register)
 router.post('/createNote',create)
 
+// update
 router.put('/updateNote',updateNote)
 
+
+// delete
 router.delete('/deleteNote',deleteNote)
 router.delete('/removeAccount',deleteUser)
 export default router
