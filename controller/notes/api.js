@@ -276,7 +276,7 @@ export const checked = async(req,res)=>{
             await result.update({
                 checked
             })
-            const resultAll = await noteTables.findAll({order:[['updatedAt','DESC']],where:{id}})
+            const resultAll = await noteTables.findAll({order:[['createdAt','DESC']],where:{id}})
             io.emit('getNote',resultAll)
             return res.status(200).json({
                 status: 'success',
