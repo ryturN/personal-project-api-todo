@@ -123,20 +123,20 @@ export const deleteNote = async(req,res)=>{
             const user = await findUsername(username)
             const id = user.id
             const result = await noteTables.findOne({where:{notes_id}})
-            const resultAll = await noteTables.findAll({order:[['updatedAt','DESC']],where:{id}})
             if(!result){
                 return res.status(404).json({
                     status: 'fail',
                     message: 'notes not found!'})
-            }
-            const resultID = result.id
-            if(resultID !== id){
-                return res.status(404).json({
-                    status: 'fail',
-                    message: 'u are not allowed to delete this notes!'})
-            }
-            if(result && id == resultID){
-                await result.destroy({where:{notes_id}})
+                }
+                const resultID = result.id
+                if(resultID !== id){
+                    return res.status(404).json({
+                        status: 'fail',
+                        message: 'u are not allowed to delete this notes!'})
+                    }
+                    if(result && id == resultID){
+                        await result.destroy({where:{notes_id}})
+                const resultAll = await noteTables.findAll({order:[['updatedAt','DESC']],where:{id}})
                 io.emit('getNote',resultAll)
                 return res.status(200).json({
                     status: 'success',
