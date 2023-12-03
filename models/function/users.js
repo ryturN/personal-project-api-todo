@@ -63,3 +63,14 @@ export const findUsername = async (username) => {
     throw error
   }
 }
+
+export const updatePassword = async (email,password) => {
+  try {
+    const hashedPassword = await bcrypt.hashSync(password, 10);
+    const user = await usersTable.update({password:hashedPassword},{where:{email}})
+    return user
+  } catch (error) {
+    console.error('error',error);
+    throw error
+  }
+}
