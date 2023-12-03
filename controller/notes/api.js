@@ -174,7 +174,8 @@ try {
                 due
             
             })
-            io.emit('getNote',result)
+        const resultAll = await noteTables.findAll({order:[['createdAt','DESC']],where:{id}})
+            io.emit('getNote',resultAll)
             return res.status(200).json({
                 status: 'success',
                 message: 'success update!'
