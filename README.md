@@ -22,7 +22,7 @@ Follow these steps to get started with the project:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/uppermoon12/personal-project-api-todo.git
+   git clone https://github.com/personal-project-api-todo.git
 
     Install Dependencies:
 
@@ -35,7 +35,7 @@ Environment Variables
 Create a .env file in the root of your project and add the following variables:
 
 env
-
+```bash
 JWT_TOKEN=your_jwt_token
 EMAIL=your_email
 PASSWORD=your_password
