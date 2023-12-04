@@ -30,8 +30,8 @@ Follow these steps to get started with the project:
 
     npm install
 
-Environment Variables
-
+**Environment Variables**
+```bash
 Create a .env file in the root of your project and add the following variables:
 
 env
@@ -41,6 +41,7 @@ EMAIL=your_email
 PASSWORD=your_password
 
 Replace your_jwt_token, your_email, and your_password with your actual values.
+
 Run the Application
 
 To start the application, run:
