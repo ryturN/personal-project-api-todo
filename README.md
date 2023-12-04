@@ -45,7 +45,7 @@ Run the Application
 
 To start the application, run:
 
-bash
+```bash
 
 npm start
 
