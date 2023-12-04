@@ -24,14 +24,30 @@ Follow these steps to get started with the project:
    ```bash
    git clone https://github.com/ryturN/personal-project-api-todo.git
 
+    ## How to Install
+
+Follow these steps to get started with the project:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/uppermoon12/personal-project-api-todo.git
+   cd personal-project-api-todo
+
     Install Dependencies:
 
     bash
 
-    npm install
+npm install
 
-**Environment Variables**
-```bash
+This command installs all the necessary dependencies for the project. If you encounter any issues during the installation, make sure you have Node.js and npm installed.
+
+bash
+
+# Verify Node.js and npm installation
+node -v
+npm -v
+
+Set up Environment Variables:
 Create a .env file in the root of your project and add the following variables:
 
 env
@@ -42,25 +58,26 @@ PASSWORD=your_password
 
 Replace your_jwt_token, your_email, and your_password with your actual values.
 
-Run the Application
+Run the Application:
 
-To start the application, run:
-
-```bash
+bash
 
 npm start
 
-This will start the application, and you can access it at http://localhost:3000.
-Contribution
+This command starts the application. Open your browser and go to http://localhost:3000 to access the application.
 
-If you would like to contribute to the project, please follow the Contribution Guidelines.
-Issues
+bash
 
-If you encounter any issues or have suggestions, please feel free to open an issue.
+    # Alternatively, for development with automatic restart on code changes
+    npm run dev
+
+Now you're all set! Feel free to explore the API and make it your own.
+
+If you have any questions or face issues, don't hesitate to reach out by opening an issue.
 
 Happy coding!
 
-css
+vbnet
 
 
-Feel free to customize it further based on your preferences and the specif
+This version includes additional comments and explanations for each step to make it more interact
