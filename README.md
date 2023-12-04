@@ -22,7 +22,7 @@ Follow these steps to get started with the project:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/uppermoon12/personal-project-api-todo.git
+   git clone https://github.com/ryturN/personal-project-api-todo.git
 
     Install Dependencies:
 
