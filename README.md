@@ -3,8 +3,8 @@
 Welcome to the Personal Project API TODO repository by uppermoon12 organization : https://github.com/uppermoon12.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub issues](https://img.shields.io/github/ryturN/issues/personal-project-api-todo)](https://github.com/ryturN/personal-project-api-todo/issues)
-[![GitHub stars](https://img.shields.io/github/ryturN/stars/personal-project-api-todo)](https://github.com/ryturN/personal-project-api-todo/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/ryturN/personal-project-api-todo)](https://github.com/ryturN/personal-project-api-todo/issues)
+[![GitHub stars](https://img.shields.io/github/stars/ryturN/personal-project-api-todo)](https://github.com/ryturN/personal-project-api-todo/stargazers)
 
 This repository utilizes Express.js, Node.js, and Socket.IO to provide an API for the TODO application.
 
