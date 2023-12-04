@@ -41,7 +41,7 @@ npm install
 
 This command installs all the necessary dependencies for the project. If you encounter any issues during the installation, make sure you have Node.js and npm installed.
 
-bash
+   ```bash
 
 # Verify Node.js and npm installation
 node -v
@@ -60,13 +60,14 @@ Replace your_jwt_token, your_email, and your_password with your actual values.
 
 Run the Application:
 
-bash
+   bash
 
 npm start
 
 This command starts the application. Open your browser and go to http://localhost:3000 to access the application.
 
-bash
+   ```bash
+
 
     # Alternatively, for development with automatic restart on code changes
     npm run dev
