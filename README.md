@@ -54,14 +54,14 @@ This will start the application, and you can access it at http://localhost:3000.
 
 ```If you would like to contribute to the project, please follow the Contribution Guidelines.```
 
-Issues
+## Issues
 
 ```If you encounter any issues or have suggestions, please feel free to open an issue.```
 
-Happy coding!
+<h1 align='center'>Happy coding!
 
 
-## Feel free to customize it further based on your preferences and the specific det<br>
+```Feel free to customize it further based on your preferences and the specific det``` 
    
 
 
