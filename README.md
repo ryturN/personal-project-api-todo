@@ -49,9 +49,11 @@ npm run start
 ```
 
 This will start the application, and you can access it at http://localhost:3000.
-Contribution<br>
 
-## If you would like to contribute to the project, please follow the Contribution Guidelines.
+## Contribution<br>
+
+```If you would like to contribute to the project, please follow the Contribution Guidelines.```
+
 Issues
 
 ```If you encounter any issues or have suggestions, please feel free to open an issue.```
