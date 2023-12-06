@@ -34,10 +34,13 @@ Follow these steps to get started with the project:
 Create a .env file in the root of your project and add the following variables:
 
 env
+```bash
+JWT_TOKEN=your_jwt_token
 
-<p>JWT_TOKEN=your_jwt_token<br></p>
-<p>EMAIL=your_email<br></p>
-<p>PASSWORD=your_password<br></p>
+EMAIL=your_email
+
+PASSWORD=your_password
+```
 
 ```Replace your_jwt_token, your_email, and your_password with your actual values.```
 
